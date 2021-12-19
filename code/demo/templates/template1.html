@@ -1,0 +1,99 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<table class="table table-view">
+
+    <thead class="thead-dark thead-view">
+        <tr>
+            <th scope="col" class="sortable column-name">
+                <div class="text">{% trans "Project name" %}</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable column-client">
+                <div class="text">{% trans "Client" %}</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable coteiname">
+                <div class="text">{% trans "Language" %}</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable column-text">
+                <div class="text">{% trans "Description" %}</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable ">
+                <div class="text" title="{% trans 'Created date' %}">{% trans "Created date" %}</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable ">
+                <div class="text" title="{% trans 'Last edit' %}">{% trans "Last modified date" %}</div>
+                <div class="clear"></div>
+            </th>
+            <th scope="col" class="sortable  ">
+                <div class="d-flex justify-content-end">
+                    <i class="material-icons thred-icon edit "
+                        title="{% trans 'Change project' %}">edit</i>
+
+                    <i class="material-icons thred-icon delete"
+                        title="{% trans 'Delete project' %}">close</i>
+                </div>
+                <div class="clear"></div>
+            </th>
+
+        </tr>
+    </thead>
+
+    <tbody class="constr-tbody" id="result_list">
+        {% if projects %}
+        {% for project in projects %}
+        <tr class="">
+            <th class="field-__str__">
+                <a href="{{ project.pk }}/" class="table-a" data-toggle="tooltip" data-placement="bottom"
+                    title="{% trans 'Open project' %}">{{project.name}} </a>
+            </th>
+            <th class="field-__str__">
+                {{project.client}}
+            </th>
+            <th class="field-__str__">
+                {{project.language}}
+            </th>
+            <th class="field-__str__">
+                {{project.text}}
+            </th>
+            <th class="field-__str__" title="{% trans 'Last edit' %}">
+                {{project.created_date}}
+            </th>
+            <th class="field-__str__" title="{% trans 'Last edit' %}">
+                {{project.modified_date}}
+            </th>
+            <th class="field-__str__ ">
+                <div class="d-flex justify-content-end">
+                    <button onclick="document.location='edit/{{project.pk}}/'" class="btn btn-link"
+                        data-toggle="tooltip" data-placement="bottom"
+                        title="{% trans 'Change' %} {% trans 'project' %}">
+                        <i class="material-icons pen">edit</i>
+                    </button>
+                    <!-- Button trigger modal DELETE -->
+                    <button type="button" class="btn btn-link" data-toggle="modal"
+                        data-target="#delete{{ project.pk }}" data-toggle="tooltip" data-placement="bottom"
+                        title="{% trans 'Delete' %} {% trans 'project' %}">
+                        <i class="material-icons time">close</i>
+                    </button>
+
+                </div>
+            </th>
+
+
+        </tr>
+
+        {% endfor %}
+        {% else %}
+        <p>No projects are available.</p>
+        {% endif %}
+
+    </tbody>
+</table>
+
+
+{% endblock %}

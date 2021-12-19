@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    environment:
+      PGDATA: /data/postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+        - postgres:/data/postgres
+
+  web:
+    build:
+      context: .
+    image: dj-web
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - ./code/demo:/code
+    depends_on:
+      - db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+
+volumes:
+  postgres:
+  pgadmin:
