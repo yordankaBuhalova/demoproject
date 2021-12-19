@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from demoapp.models import Project
+from demoapp.models import Project, ClientFirm
+from django.views.generic import ListView
 
 class ProjectListView(TemplateView):
     template_name = 'template1.html'
@@ -16,3 +17,5 @@ class ProjectListView(TemplateView):
         return render(request, self.template_name,{
             'projects': projects
         })
+
+

@@ -1,10 +1,14 @@
 FROM python:3
 
-ENV PYTHONUNBUFFERED 1
+# create dir
 RUN mkdir /code
+# set container working dir
 WORKDIR /code
+# install req. os packages
 RUN apt update
 RUN apt install gettext -y
-COPY code/requirements.txt /code/
 
+# copy requirements.txt in code dir
+COPY code/requirements.txt /code/
+# install python packages
 RUN pip install -r requirements.txt
